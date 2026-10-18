@@ -1,0 +1,395 @@
+<title>いまどきご配慮辞典</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 国語辞典の版面。左に五十音の爪（つめ）、本文は見出し語＋〔品詞〕風ラベル＋用例の一段組み */
+:root{
+  --paper:#f5f6f3;
+  --sheet:#ffffff;
+  --ink:#1f2328;
+  --ink-soft:#5b6168;
+  --rule:#d9dcd6;
+  --ai:#27466f;          /* 藍：唯一のアクセント */
+  --ai-wash:#e6ecf4;
+  --ng:#9a3b32;          /* 避けたい例（意味色） */
+  --ng-wash:#f6e9e6;
+  --ok:#2f6b4f;          /* 言い換え（意味色） */
+  --ok-wash:#e5f1ea;
+  --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --step--1:.8125rem; --step-0:.9375rem; --step-1:1.125rem; --step-2:1.5rem; --step-3:2.25rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
+  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --ok:#88c9a6; --ok-wash:#1b2e25;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
+  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --ok:#88c9a6; --ok-wash:#1b2e25;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:var(--step-0);line-height:1.8}
+.wrap{max-width:60rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* 表紙 */
+header.cover{padding-block:2.5rem 1.5rem;display:grid;gap:1rem}
+.cover .edition{font-size:var(--step--1);letter-spacing:.2em;color:var(--ink-soft)}
+.cover h1{font-family:var(--f-head);font-weight:900;font-size:clamp(2rem,6vw,3.25rem);line-height:1.2;margin:0;text-wrap:balance}
+.cover h1 ruby rt{font-family:var(--f-body);font-size:.28em;font-weight:500;letter-spacing:.1em;color:var(--ink-soft)}
+.cover .lead{max-width:38em;margin:0;color:var(--ink-soft)}
+.cover .lead b{color:var(--ink);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:var(--step--1);color:var(--ink-soft);margin:0;padding:0;list-style:none}
+.legend li{display:flex;gap:.4rem;align-items:center}
+
+/* 今日のひとつ */
+.today{background:var(--ai);color:var(--sheet);border-radius:4px;padding:1rem 1.25rem;display:grid;gap:.25rem;grid-template-columns:1fr auto;align-items:center}
+.today .lbl{font-size:var(--step--1);letter-spacing:.15em;opacity:.85}
+.today .w{font-family:var(--f-head);font-weight:700;font-size:var(--step-1);line-height:1.5}
+.today button{background:transparent;color:inherit;border:1px solid currentColor;border-radius:999px;padding:.3rem .9rem;font:inherit;font-size:var(--step--1);cursor:pointer;grid-row:span 2}
+.today a{color:inherit}
+
+/* 検索バー */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);padding-block:.75rem}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.bar .wrap{display:grid;gap:.6rem}
+.searchrow{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 16rem;min-width:0;position:relative}
+.search input{width:100%;font:inherit;font-size:1rem;padding:.6rem .9rem;border:1px solid var(--rule);border-radius:4px;background:var(--sheet);color:var(--ink)}
+.search input:focus-visible{outline:2px solid var(--ai);outline-offset:1px}
+.progress{font-size:var(--step--1);color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.progress b{color:var(--ai);font-size:var(--step-0)}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{font:inherit;font-size:var(--step--1);padding:.2rem .75rem;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ai);border-color:var(--ai);color:var(--sheet)}
+.chip:focus-visible,.kana a:focus-visible,button:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+
+/* 本文：爪＋項目 */
+main.wrap{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1.25rem;padding-block:1.5rem 4rem}
+nav.kana{position:sticky;top:9.5rem;align-self:start;display:flex;flex-direction:column;gap:2px}
+.kana a{display:block;text-align:center;font-family:var(--f-head);font-weight:700;padding:.3rem 0;text-decoration:none;color:var(--ai);background:var(--ai-wash);border-radius:0 4px 4px 0}
+.kana a[aria-disabled="true"]{color:var(--ink-soft);background:transparent;opacity:.45;pointer-events:none}
+.entries{display:grid;gap:0;min-width:0}
+h2.row{font-family:var(--f-head);font-weight:900;font-size:var(--step-2);color:var(--ai);margin:1.5rem 0 .25rem;display:flex;align-items:baseline;gap:.75rem;scroll-margin-top:10rem}
+h2.row:first-child{margin-top:0}
+h2.row::after{content:"";flex:1;border-top:1px solid var(--rule)}
+article.entry{padding-block:1.25rem;border-bottom:1px dotted var(--rule);display:grid;gap:.6rem;scroll-margin-top:10rem}
+article.entry.flash{animation:flash 1.6s ease-out}
+@keyframes flash{from{background:var(--ai-wash)}to{background:transparent}}
+.hw{display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .75rem}
+.hw .yomi{font-size:var(--step--1);color:var(--ink-soft);letter-spacing:.05em;flex-basis:100%}
+.hw h3{font-family:var(--f-head);font-weight:700;font-size:var(--step-1);margin:0;line-height:1.5;text-wrap:balance}
+.hw h3::before{content:"【";color:var(--ink-soft);font-weight:500}
+.hw h3::after{content:"】";color:var(--ink-soft);font-weight:500}
+.tag{font-size:var(--step--1);color:var(--ai);white-space:nowrap}
+.cat{font-size:var(--step--1);color:var(--ink-soft);white-space:nowrap}
+.got{margin-left:auto;font:inherit;font-size:var(--step--1);border:1px solid var(--rule);background:var(--sheet);color:var(--ink-soft);border-radius:999px;padding:.15rem .7rem;cursor:pointer;white-space:nowrap}
+.got[aria-pressed="true"]{border-color:var(--ok);color:var(--ok);background:var(--ok-wash)}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.5rem}
+.ex{border-radius:4px;padding:.55rem .8rem;font-size:var(--step-0);line-height:1.7}
+.ex .mk{font-weight:700;font-size:var(--step--1);display:block;letter-spacing:.08em}
+.ex.ng{background:var(--ng-wash)}
+.ex.ng .mk{color:var(--ng)}
+.ex.ok{background:var(--ok-wash)}
+.ex.ok .mk{color:var(--ok)}
+.def{margin:0;max-width:40em}
+.def .lbl,.see .lbl{display:inline-block;font-size:var(--step--1);font-weight:700;color:var(--sheet);background:var(--ink-soft);border-radius:2px;padding:0 .35rem;margin-right:.4rem;line-height:1.6}
+.see{margin:0;font-size:var(--step--1);color:var(--ink-soft)}
+.see a{color:var(--ai)}
+.empty{padding:2rem 0;color:var(--ink-soft)}
+.empty button{font:inherit;color:var(--ai);background:none;border:none;text-decoration:underline;cursor:pointer;padding:0}
+mark{background:var(--ai-wash);color:inherit;padding:0 .1em}
+
+footer.colophon{border-top:1px solid var(--rule);padding-block:1.5rem 3rem;font-size:var(--step--1);color:var(--ink-soft)}
+footer.colophon p{margin:.25rem 0;max-width:44em}
+
+@media (max-width:560px){
+  main.wrap{grid-template-columns:minmax(0,1fr)}
+  nav.kana{position:static;flex-direction:row;flex-wrap:wrap}
+  .kana a{flex:1 0 2rem;border-radius:4px}
+  nav.kana{order:-1}
+  .today{grid-template-columns:1fr}
+  .today button{grid-row:auto;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){article.entry.flash{animation:none}html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="cover wrap">
+  <div class="edition">第一版　二〇二六年秋</div>
+  <h1><ruby>いまどき<rt>いまどき</rt></ruby>ご配慮辞典</h1>
+  <p class="lead">悪気はなかったのに、相手を傷つけてしまう。そんな「ひと言」と「ふるまい」を集めました。正解はひとつではありません。<b>迷ったら相手に聞く</b>のが、いちばんのご配慮です。</p>
+  <ul class="legend" aria-label="凡例">
+    <li><span class="tag">〔ことば〕</span>言い方の配慮</li>
+    <li><span class="tag">〔ふるまい〕</span>行動の配慮</li>
+    <li><span class="tag" style="color:var(--ng)">▲ 避けたい</span>悪気なく出がちな例</li>
+    <li><span class="tag" style="color:var(--ok)">○ こう言う</span>言い換え・代わりの行動</li>
+  </ul>
+  <div class="today" id="today" aria-live="polite">
+    <span class="lbl">きょうのご配慮</span>
+    <span class="w" id="todayWord"></span>
+    <button type="button" id="shuffle">ほかのを見る</button>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="searchrow">
+      <label class="search"><span hidden>辞典を検索</span>
+        <input id="q" type="search" placeholder="ことばで引く（例：結婚、飲み会、SNS）" autocomplete="off">
+      </label>
+      <span class="progress" id="progress"></span>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="分野で絞り込む"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="kana" id="kana" aria-label="五十音で引く"></nav>
+  <div class="entries" id="entries"></div>
+</main>
+
+<footer class="colophon wrap">
+  <p>この辞典は、相手を責めるためのものではなく、自分の言葉を選ぶためのものです。言い換えは一例で、相手や場面によって受け止め方は変わります。</p>
+  <p>「身についた」の記録は、この端末のブラウザにだけ保存されます。</p>
+</footer>
+
+<script>
+const CATS=["職場","恋愛・家族","からだ・健康","ルーツ・多様性","SNS・デジタル","街なか","世代"];
+
+const E=[
+{id:"goshujin",w:"ご主人・奥さん",y:"ごしゅじん・おくさん",k:"ことば",c:"恋愛・家族",
+ ng:"「ご主人はお元気？」「奥さんに怒られない？」",
+ ok:"「パートナーさんはお元気？」「お連れ合いの方は？」相手が使う呼び方に合わせる",
+ why:"「主人」「奥」には上下や家の中という含みがあり、気にする人が増えています。同性カップルや事実婚の人もいます。相手がどう呼んでいるかを聞いて、それに合わせるのが確実です。",see:["kekkon","yobikata"]},
+{id:"kekkon",w:"結婚しないの？・子どもはまだ？",y:"けっこんしないの",k:"ことば",c:"恋愛・家族",
+ ng:"「いい人いないの？」「二人目は考えてる？」",
+ ok:"話題にしない。相手から話してくれたら、聞き役にまわる",
+ why:"結婚や出産は、望んでいない人も、望んでもかなわない人もいます。不妊治療中の人にとっては、何気ないひと言が大きな負担になります。",see:["kareshi","ninshin"]},
+{id:"kareshi",w:"彼氏（彼女）いるの？",y:"かれしいるの",k:"ことば",c:"恋愛・家族",
+ ng:"「彼氏いるの？」「モテそうだよね」",
+ ok:"恋愛の話は相手から出るまで待つ。聞くなら「大切な人」「パートナー」など性別を決めない言い方で",
+ why:"恋愛対象の性別は人それぞれで、恋愛をしない人もいます。異性の恋人がいる前提の質問は、答えにくさを生みます。",see:["outing"]},
+{id:"joshiryoku",w:"女子力・男らしく",y:"じょしりょく・おとこらしく",k:"ことば",c:"職場",
+ ng:"「女子力高いね」「男なんだから泣くな」",
+ ok:"「気配りが細やかだね」「つらいときは無理しないで」行動そのものを具体的にほめる・ねぎらう",
+ why:"性別で能力や性格を決めつける言葉は、ほめ言葉でも窮屈さを生みます。何がよかったのかを具体的に言うほうが、相手にも伝わります。",see:["okaasan"]},
+{id:"okaasan",w:"お母さんの手作り？",y:"おかあさんのてづくり",k:"ことば",c:"恋愛・家族",
+ ng:"「お母さんが作ってくれたの？」「奥さんの愛妻弁当？」",
+ ok:"「おいしそう！手作り？」誰が作ったかを決めつけない",
+ why:"家事や育児をするのが母親や妻とはかぎりません。ひとり親家庭や、自分で作っている人もいます。",see:["joshiryoku"]},
+{id:"half",w:"ハーフ・日本語お上手ですね",y:"はーふ・にほんごおじょうずですね",k:"ことば",c:"ルーツ・多様性",
+ ng:"「ハーフなんだ、いいなあ」「日本語上手ですね」「本当はどこの人？」",
+ ok:"本人が使う呼び方に合わせる（「ミックスルーツ」「ダブル」など）。出身を聞くなら「どちらで育ったんですか」",
+ why:"日本で生まれ育った人も多く、「日本語上手」は「あなたは日本人に見えない」という意味に受け取られがちです。見た目からルーツを推測しないことが基本です。",see:["gaijin"]},
+{id:"gaijin",w:"外人",y:"がいじん",k:"ことば",c:"ルーツ・多様性",
+ ng:"「外人さんが来てるよ」",
+ ok:"「海外から来た方」「〇〇出身の方」",
+ why:"「外人」は「よそ者」というニュアンスを含み、言われた側が疎外感を覚えやすい言葉です。国名や出身地で呼ぶほうが、その人を個人として見ることにつながります。",see:["half"]},
+{id:"futsuu",w:"普通は・普通の人",y:"ふつうは・ふつうのひと",k:"ことば",c:"ルーツ・多様性",
+ ng:"「普通こうするでしょ」「障害のない普通の人」",
+ ok:"「私はこうしているよ」「障害のない人」「多くの人は」",
+ why:"「普通」の反対は「普通じゃない」になり、知らないうちに誰かを外側に置いてしまいます。自分の考えは自分を主語にして話すと角が立ちません。",see:["helpmark"]},
+{id:"yaseta",w:"痩せた？・太った？",y:"やせた・ふとった",k:"ことば",c:"からだ・健康",
+ ng:"「痩せたね！」「ちょっと太った？」「顔色悪いよ」",
+ ok:"体型には触れない。ほめるなら「その服すてき」「髪型変えた？似合ってる」など本人が選んだものを",
+ why:"体重の変化には病気やストレス、治療の影響があることもあります。「痩せた」はほめ言葉のつもりでも、つらい事情を思い出させることがあります。",see:["ijiri"]},
+{id:"toshi",w:"年の割に・もうおばさんだから",y:"としのわりに",k:"ことば",c:"世代",
+ ng:"「年の割に若いね」「もうおじさんだから無理」「若いのにしっかりしてる」",
+ ok:"「いつも元気だね」「しっかりしてるね」年齢をつけずに言う",
+ why:"年齢を基準にしたほめ言葉は「この年齢ならこうあるべき」という前提を含みます。自分を下げる冗談も、同年代の人を巻き込みます。",see:["sedai"]},
+{id:"sedai",w:"Z世代は・ゆとりだから",y:"ぜっとせだいは",k:"ことば",c:"世代",
+ ng:"「さすがZ世代」「これだからゆとりは」「昭和の人はね」",
+ ok:"「〇〇さんはこう考えるんだね」世代ではなく個人として話す",
+ why:"世代ラベルは便利ですが、ひとくくりにされると、その人自身の考えが見えなくなります。上の世代に向けた言葉でも同じです。",see:["wakaikoro","toshi"]},
+{id:"wakaikoro",w:"俺の若い頃は",y:"おれのわかいころは",k:"ことば",c:"世代",
+ ng:"「俺の若い頃は終電まで働いてた」「昔はもっと厳しかった」",
+ ok:"「自分のときはこうだったけど、今はどう？」経験は押しつけず、選択肢として渡す",
+ why:"環境もルールも変わっています。昔の基準を持ち出されると、相手は反論しにくくなります。経験談は、聞かれたときに役立ちます。",see:["sedai"]},
+{id:"ganbatte",w:"頑張って",y:"がんばって",k:"ことば",c:"からだ・健康",
+ ng:"落ち込んでいる人や療養中の人に「頑張って！」「気の持ちようだよ」",
+ ok:"「無理しないでね」「何かできることがあったら言ってね」「話ならいつでも聞くよ」",
+ why:"すでに限界まで頑張っている人には、励ましが追いつめる言葉になることがあります。具体的にできることを差し出すほうが支えになります。",see:["menhera","yasumi"]},
+{id:"menhera",w:"メンヘラ・うつっぽい",y:"めんへら・うつっぽい",k:"ことば",c:"からだ・健康",
+ ng:"「月曜でうつだわ」「あの人メンヘラだから」「ADHDっぽい」",
+ ok:"「月曜で気が重い」「最近疲れてるみたい」気分や様子をそのまま言う",
+ why:"病名や障害名を軽い悪口や冗談に使うと、実際にその診断を受けている人が打ち明けにくくなります。",see:["ganbatte"]},
+{id:"ijiri",w:"いじり",y:"いじり",k:"ふるまい",c:"職場",
+ ng:"容姿や失敗、口ぐせをみんなの前でネタにする。「愛があるから大丈夫」",
+ ok:"笑いを取るなら自分のことか、その場の出来事で。相手の反応が硬かったら、すぐやめて謝る",
+ why:"笑ってくれているように見えても、場を壊さないために合わせているだけのことがあります。いじりかどうかを決めるのは、言われた側です。",see:["yaseta"]},
+{id:"kunchan",w:"くん・ちゃん付け",y:"くん・ちゃんづけ",k:"ことば",c:"職場",
+ ng:"職場で女性だけ「〇〇ちゃん」、年下だけ「〇〇くん」",
+ ok:"職場では全員「〇〇さん」",
+ why:"呼び方の違いは、扱いの違いとして伝わります。全員を同じ呼び方にすると、性別や年齢による上下が生まれにくくなります。",see:["yobikata"]},
+{id:"yobikata",w:"呼び方を聞く",y:"よびかたをきく",k:"ふるまい",c:"ルーツ・多様性",
+ ng:"見た目で性別を決めて「彼」「彼女」と呼ぶ。あだ名を勝手につける",
+ ok:"「なんて呼んだらいい？」と最初に聞く。自己紹介で自分から呼ばれ方を伝えると、相手も言いやすい",
+ why:"呼ばれたい名前や代名詞は、本人がいちばんよく知っています。最初に聞いておけば、あとで気まずくなることもありません。",see:["namae","kunchan"]},
+{id:"namae",w:"名前の読み・漢字",y:"なまえのよみ",k:"ふるまい",c:"職場",
+ ng:"読みにくい名前を当て推量で呼ぶ。「変わった名前だね」",
+ ok:"「お名前は何とお読みすればいいですか」と確認し、メモしておく",
+ why:"名前はその人そのものです。間違えたままにされると、軽く扱われていると感じます。聞くことは失礼ではありません。",see:["yobikata"]},
+{id:"outing",w:"カミングアウトされたら",y:"かみんぐあうと",k:"ふるまい",c:"ルーツ・多様性",
+ ng:"「みんなにも言っていい？」と聞かずに広める。「そうは見えない」と返す",
+ ok:"「話してくれてありがとう」と受け止める。誰に話してよいかを本人に確認し、それ以外には話さない",
+ why:"性のあり方や病気などを本人の同意なく他人に明かすこと（アウティング）は、深刻な被害につながります。打ち明けられた情報は本人のものです。",see:["kareshi"]},
+{id:"ninshin",w:"妊娠の話題",y:"にんしんのわだい",k:"ことば",c:"からだ・健康",
+ ng:"「お腹大きいね、何か月？」「つわりで休むの？」",
+ ok:"本人から話があるまで触れない。報告されたら「おめでとう。体調優先でね」",
+ why:"妊娠しているように見えても違う場合や、流産などつらい事情がある場合もあります。いつ誰に伝えるかは本人が決めることです。",see:["kekkon","ikukyu"]},
+{id:"ikukyu",w:"育休・介護休業",y:"いくきゅう・かいごきゅうぎょう",k:"ことば",c:"職場",
+ ng:"「いいなあ、休めて」「男が育休取るの？」「いつ戻ってくるの？」",
+ ok:"「おめでとう。こっちは任せて」「引き継ぎで気になることがあったら聞いて」",
+ why:"育休や介護休業は休暇ではなく、別の大変な仕事が始まる期間です。取りやすい空気をつくることが、いずれ自分のためにもなります。",see:["yasumi"]},
+{id:"yasumi",w:"休みの理由を聞く",y:"やすみのりゆう",k:"ふるまい",c:"職場",
+ ng:"「何の病院？」「生理くらいで？」「家の用事って何？」",
+ ok:"「了解、お大事に」「引き継ぎだけお願いします」理由は聞かない",
+ why:"生理や持病、通院、家族の介護など、言いにくい理由はたくさんあります。業務に必要なのは「休むこと」と「引き継ぎ」で、理由ではありません。",see:["ikukyu","ganbatte"]},
+{id:"jikangai",w:"勤務時間外の連絡",y:"きんむじかんがいのれんらく",k:"ふるまい",c:"職場",
+ ng:"深夜や休日に業務チャットを送る。返信がないと催促する",
+ ok:"予約送信を使う。急がないときは「返信は明日でOKです」とひと言添える",
+ why:"送る側は思いついたときに送りたいだけでも、受け取る側は「すぐ返さなきゃ」と感じます。時間外の通知は、休みを削ります。",see:["denwa","kidoku"]},
+{id:"denwa",w:"いきなり電話",y:"いきなりでんわ",k:"ふるまい",c:"SNS・デジタル",
+ ng:"用件を伝えずに突然電話をかける",
+ ok:"「〇〇の件で5分ほどお電話できますか」とチャットで先に聞く",
+ why:"電話は相手の時間を一方的に止めます。先に用件と所要時間を伝えると、相手は都合のいいときに準備して出られます。",see:["jikangai"]},
+{id:"kidoku",w:"既読スルーを責める",y:"きどくするー",k:"ふるまい",c:"SNS・デジタル",
+ ng:"「既読なのに返事ないね」「なんで無視するの？」",
+ ok:"急ぎなら最初に期限を書く。返事は相手のペースで待つ",
+ why:"読んだあと、考えてから返したい人も、返す余裕がない人もいます。既読はただ「読んだ」というだけの合図です。",see:["jikangai"]},
+{id:"camera",w:"カメラONの強制",y:"かめらおんのきょうせい",k:"ふるまい",c:"SNS・デジタル",
+ ng:"「顔出しが礼儀でしょ」とオンライン会議でカメラを強制する",
+ ok:"「話すときだけONでも大丈夫です」など選べるようにする",
+ why:"家の様子を見せたくない、体調がすぐれない、通信環境が悪いなど、理由はさまざまです。顔が見えなくても会議の質は保てます。",see:[]},
+{id:"shashin",w:"写真をSNSに載せる",y:"しゃしんをえすえぬえすにのせる",k:"ふるまい",c:"SNS・デジタル",
+ ng:"集合写真や子どもの写真を、写っている人に聞かずに投稿する",
+ ok:"「この写真載せてもいい？」と投稿前に聞く。顔が写った子どもの写真は特に慎重に",
+ why:"写り込みから住所や学校がわかることがあり、一度広まった写真は消せません。投稿していいかを決めるのは、写っている本人です。",see:["seiseiai"]},
+{id:"seiseiai",w:"生成AIで人の顔や声を使う",y:"せいせいえーあい",k:"ふるまい",c:"SNS・デジタル",
+ ng:"友人や有名人の写真・声を、本人に断らずに生成AIで加工して投稿する",
+ ok:"本人の同意がない顔や声は使わない。AIで作ったものは、そうとわかるように示す",
+ why:"冗談のつもりでも、本人が言っていないことを言わせたり、本物と間違えられたりする危険があります。肖像や声は本人のものです。",see:["shashin","repost"]},
+{id:"repost",w:"確かめずにリポスト",y:"たしかめずにりぽすと",k:"ふるまい",c:"SNS・デジタル",
+ ng:"災害時や事件のときに、出どころのわからない情報をすぐ拡散する",
+ ok:"公的機関や報道など、一次情報を確認してから共有する。迷ったら広めない",
+ why:"善意の拡散でも、誤った情報は混乱や差別を生みます。広めた人も、責任の一部を負うことになります。",see:["seiseiai"]},
+{id:"nomikai",w:"飲み会への誘い方",y:"のみかいへのさそいかた",k:"ふるまい",c:"職場",
+ ng:"「全員参加ね」「来ないと付き合い悪いよ」",
+ ok:"「来られる人だけで」と自由参加にする。ランチや勤務時間内の会など、いろいろな形を用意する",
+ why:"子育てや介護、体質、宗教などで夜の飲み会に出られない人もいます。参加しないことで不利にならない空気が大切です。",see:["torinama","shoku"]},
+{id:"torinama",w:"とりあえず生",y:"とりあえずなま",k:"ふるまい",c:"職場",
+ ng:"全員分の生ビールを勝手に頼む。「一杯くらい飲めるでしょ」",
+ ok:"最初に一人ずつ飲み物を聞く。ノンアルコールを選びやすくする",
+ why:"お酒が飲めない体質の人、薬を飲んでいる人、妊娠中の人、宗教上飲まない人がいます。飲まない理由を説明させない配慮も大切です。",see:["nomikai"]},
+{id:"shoku",w:"食べられないものがある人",y:"たべられないものがあるひと",k:"ふるまい",c:"街なか",
+ ng:"「好き嫌いはよくないよ」「ちょっとくらい大丈夫」",
+ ok:"会食の前に「食べられないものはありますか」と全員に聞く",
+ why:"アレルギーは命にかかわります。宗教や信条、持病で食べないものがある人もいます。好みの問題として扱わないことが基本です。",see:["nomikai"]},
+{id:"helpmark",w:"ヘルプマーク・見えない障害",y:"へるぷまーく",k:"ふるまい",c:"街なか",
+ ng:"若くて元気そうに見える人が優先席に座っていると、にらむ",
+ ok:"ヘルプマークを見かけたら席をゆずる。困っていそうなら「何かお手伝いできますか」と声をかける",
+ why:"内部障害や難病、妊娠初期など、外から見えない事情を抱えた人がいます。手助けは、相手が望んだときに相手の望む形で。",see:["futsuu"]},
+{id:"babycar",w:"ベビーカーや子連れの人",y:"べびーかー",k:"ふるまい",c:"街なか",
+ ng:"電車や店で泣き声に舌打ちする。ベビーカーにため息をつく",
+ ok:"気にしていないそぶりで見守る。乗り降りや段差で手を貸す",
+ why:"子どもが泣くのは止められません。周りの冷たい視線は、親を外出しにくくさせます。黙って見守るだけでも支えになります。",see:["helpmark"]},
+{id:"kougai",w:"香りの強さ",y:"かおりのつよさ",k:"ふるまい",c:"街なか",
+ ng:"柔軟剤や香水を強くつけて、満員電車や会議室に入る",
+ ok:"香りは近くでほのかに感じる程度に。人の集まる場では控えめにする",
+ why:"強い香りで頭痛や吐き気が出る人がいます（いわゆる「香害」）。自分では慣れてしまい、強さに気づきにくいものです。",see:[]},
+{id:"nenshu",w:"年収・家賃を聞く",y:"ねんしゅう・やちん",k:"ことば",c:"街なか",
+ ng:"「年収いくら？」「家賃いくらのとこ住んでるの？」「その時計高そう」",
+ ok:"お金の話は相手から出たときだけ。相場を知りたいなら一般論として聞く",
+ why:"お金の事情は人それぞれで、比べられることに抵抗を感じる人が多い話題です。持ち物の値段に触れるのも同じです。",see:[]},
+{id:"nande",w:"なんで？と詰める",y:"なんでとつめる",k:"ことば",c:"職場",
+ ng:"ミスをした人に「なんでこうなったの？」「なんでできないの？」",
+ ok:"「何があったか教えてもらえる？」「次はどうしたらうまくいくかな」",
+ why:"「なんで」は責める響きを持ちやすく、相手は言い訳を考え始めます。原因と次の手を一緒に考える聞き方のほうが、再発防止につながります。",see:["mansplain"]},
+{id:"mansplain",w:"説明しすぎ・話をさえぎる",y:"せつめいしすぎ",k:"ふるまい",c:"職場",
+ ng:"相手が詳しい分野なのに、頼まれていない説明を始める。発言の途中でかぶせる",
+ ok:"「この件、どこまでご存じですか」と先に聞く。最後まで聞いてから話す",
+ why:"相手が若い、女性だから、といった思い込みで説明を始めると、能力を低く見ていると伝わります。会議で発言が偏っていないかも見ておきたいところです。",see:["nande"]}
+];
+
+/* 五十音の行 */
+const ROWS=[["あ","あいうえお"],["か","かきくけこ"],["さ","さしすせそ"],["た","たちつてと"],["な","なにぬねの"],["は","はひふへほ"],["ま","まみむめも"],["や","やゆよ"],["ら","らりるれろ"],["わ","わをん"]];
+const rowOf=y=>{const ch=y.normalize("NFD")[0];const r=ROWS.find(([,s])=>s.includes(ch));return r?r[0]:"わ"};
+E.forEach(e=>e.row=rowOf(e.y));
+E.sort((a,b)=>a.y.localeCompare(b.y,"ja"));
+const byId=Object.fromEntries(E.map(e=>[e.id,e]));
+
+let got=new Set();
+try{got=new Set(JSON.parse(localStorage.getItem("gohairyo-got")||"[]"))}catch(_){}
+const saveGot=()=>{try{localStorage.setItem("gohairyo-got",JSON.stringify([...got]))}catch(_){}};
+
+const state={q:"",cat:null};
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const hl=s=>{const t=esc(s);if(!state.q)return t;const q=esc(state.q).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return t.replace(new RegExp(q,"g"),m=>`<mark>${m}</mark>`)};
+
+function chips(){
+  const el=$("#chips");
+  el.innerHTML=[`<button type="button" class="chip" data-cat="" aria-pressed="${!state.cat}">すべて</button>`]
+    .concat(CATS.map(c=>`<button type="button" class="chip" data-cat="${c}" aria-pressed="${state.cat===c}">${c}</button>`)).join("");
+}
+function match(e){
+  if(state.cat&&e.c!==state.cat)return false;
+  if(!state.q)return true;
+  return [e.w,e.y,e.ng,e.ok,e.why,e.c,e.k].some(t=>t.includes(state.q));
+}
+function render(){
+  const list=E.filter(match);
+  const rowsPresent=new Set(list.map(e=>e.row));
+  $("#kana").innerHTML=ROWS.map(([r])=>`<a href="#row-${r}" ${rowsPresent.has(r)?"":'aria-disabled="true" tabindex="-1"'}>${r}</a>`).join("");
+  let html="",cur=null;
+  for(const e of list){
+    if(e.row!==cur){cur=e.row;html+=`<h2 class="row" id="row-${cur}">${cur}行</h2>`}
+    const see=e.see.filter(id=>byId[id]).map(id=>`<a href="#${id}" data-jump="${id}">${byId[id].w}</a>`).join("、");
+    const on=got.has(e.id);
+    html+=`<article class="entry" id="${e.id}">
+      <div class="hw">
+        <span class="yomi">${hl(e.y)}</span>
+        <h3>${hl(e.w)}</h3>
+        <span class="tag">〔${e.k}〕</span><span class="cat">${e.c}</span>
+        <button type="button" class="got" data-got="${e.id}" aria-pressed="${on}">${on?"✓ 身についた":"身についた"}</button>
+      </div>
+      <div class="pair">
+        <div class="ex ng"><span class="mk">▲ 避けたい</span>${hl(e.ng)}</div>
+        <div class="ex ok"><span class="mk">○ こう言う・こうする</span>${hl(e.ok)}</div>
+      </div>
+      <p class="def"><span class="lbl">なぜ</span>${hl(e.why)}</p>
+      ${see?`<p class="see"><span class="lbl">→</span>あわせて引く：${see}</p>`:""}
+    </article>`;
+  }
+  $("#entries").innerHTML=html||`<p class="empty">「${esc(state.q)}」に当てはまる項目はありません。<button type="button" id="clear">検索を解除する</button></p>`;
+  $("#progress").innerHTML=`身についた <b>${got.size}</b> / ${E.length} 語`;
+}
+function jump(id){
+  if(!document.getElementById(id)){state.q="";state.cat=null;$("#q").value="";chips();render()}
+  const el=document.getElementById(id);if(!el)return;
+  el.scrollIntoView({block:"start"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");
+}
+function today(random){
+  const d=new Date();const seed=d.getFullYear()*372+d.getMonth()*31+d.getDate();
+  const e=random?E[Math.floor(Math.random()*E.length)]:E[seed%E.length];
+  $("#todayWord").innerHTML=`<a href="#${e.id}" data-jump="${e.id}">【${e.w}】</a>　${esc(e.ok.split("。")[0])}`;
+}
+
+$("#q").addEventListener("input",ev=>{state.q=ev.target.value.trim();render()});
+$("#chips").addEventListener("click",ev=>{const b=ev.target.closest(".chip");if(!b)return;state.cat=b.dataset.cat||null;chips();render()});
+document.addEventListener("click",ev=>{
+  const j=ev.target.closest("[data-jump]");if(j){ev.preventDefault();jump(j.dataset.jump);return}
+  const g=ev.target.closest("[data-got]");if(g){const id=g.dataset.got;got.has(id)?got.delete(id):got.add(id);saveGot();
+    g.setAttribute("aria-pressed",got.has(id));g.textContent=got.has(id)?"✓ 身についた":"身についた";
+    $("#progress").innerHTML=`身についた <b>${got.size}</b> / ${E.length} 語`;return}
+  if(ev.target.id==="clear"){state.q="";$("#q").value="";render()}
+});
+$("#shuffle").addEventListener("click",()=>today(true));
+
+chips();render();today(false);
+if(location.hash&&byId[location.hash.slice(1)])setTimeout(()=>jump(location.hash.slice(1)),50);
+</script>
