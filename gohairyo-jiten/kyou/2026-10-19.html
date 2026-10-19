@@ -2,31 +2,21 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
 <style>
 /* Layout: ご配慮辞典の別冊。一段組みの記事で、話題ごとに「気持ちの分かれ道」を三段で見せる */
 :root{
-  --paper:#f5f6f3; --sheet:#ffffff; --ink:#1f2328; --ink-soft:#5b6168; --rule:#d9dcd6;
-  --ai:#27466f; --ai-wash:#e6ecf4;
-  --ng:#9a3b32; --ng-wash:#f6e9e6;
-  --mid:#8a6417; --mid-wash:#f6efdf;
-  --ok:#2f6b4f; --ok-wash:#e5f1ea;
+  --paper:#FFF7D6; --sheet:#FFFFFF; --ink:#241F3D; --ink-soft:#5E5880; --rule:#241F3D; --ai:#FF4F8B; --ai-wash:#FFE1EC; --ng:#F0552E; --ng-wash:#FFE2D8; --mid:#E39B00; --mid-wash:#FFEFBE; --ok:#12A880; --ok-wash:#D2F5E8; --il-bg:#FFF0F6; --il-floor:#FFD3E3; --il-sky:#BDE8FF; --il-skin:#FFD9BC; --il-hair:#241F3D; --il-line:#241F3D; --il-a:#3D6DFF; --il-b:#9FD6FF; --il-c:#FFC83D; --il-d:#2ED3A0; --il-paper:#FFFFFF; --il-heart:#FF4F8B; 
   --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   --step--1:.8125rem; --step-0:.9375rem; --step-1:1.125rem; --step-2:1.5rem;
-  --il-bg:#e9eef4; --il-floor:#d9e1ea; --il-sky:#cfe0f2; --il-skin:#f2d4bb; --il-hair:#363b44; --il-line:#2a2f37;
-  --il-a:#3a5f93; --il-b:#9db3cf; --il-c:#e0b04f; --il-d:#77a68a; --il-paper:#ffffff; --il-heart:#d9707a;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
-  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
-  --il-bg:#1f2630; --il-floor:#27303b; --il-sky:#34465e; --il-skin:#dcbca2; --il-hair:#0f1216; --il-line:#e3e6ea; --il-a:#6f93c4; --il-b:#4b6383; --il-c:#c99b42; --il-d:#5f9077; --il-paper:#2a313b; --il-heart:#d0727c;
+  --paper:#1E1A36; --sheet:#2B2652; --ink:#FFF7D6; --ink-soft:#C7C1EA; --rule:#FFF7D6; --ai:#FF7FAE; --ai-wash:#4A2A46; --ng:#FF8F6C; --ng-wash:#4A2E2A; --mid:#FFC93D; --mid-wash:#4A4020; --ok:#4FE0B3; --ok-wash:#1E4A3E; --il-bg:#2F2A5A; --il-floor:#3B3470; --il-sky:#3D6DFF; --il-skin:#F1C9A6; --il-hair:#15122A; --il-line:#FFF7D6; --il-a:#7FA3FF; --il-b:#5C7FBF; --il-c:#FFC83D; --il-d:#4FE0B3; --il-paper:#3B3470; --il-heart:#FF7FAE; 
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
-  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
-  --il-bg:#1f2630; --il-floor:#27303b; --il-sky:#34465e; --il-skin:#dcbca2; --il-hair:#0f1216; --il-line:#e3e6ea; --il-a:#6f93c4; --il-b:#4b6383; --il-c:#c99b42; --il-d:#5f9077; --il-paper:#2a313b; --il-heart:#d0727c;
+  --paper:#1E1A36; --sheet:#2B2652; --ink:#FFF7D6; --ink-soft:#C7C1EA; --rule:#FFF7D6; --ai:#FF7FAE; --ai-wash:#4A2A46; --ng:#FF8F6C; --ng-wash:#4A2E2A; --mid:#FFC93D; --mid-wash:#4A4020; --ok:#4FE0B3; --ok-wash:#1E4A3E; --il-bg:#2F2A5A; --il-floor:#3B3470; --il-sky:#3D6DFF; --il-skin:#F1C9A6; --il-hair:#15122A; --il-line:#FFF7D6; --il-a:#7FA3FF; --il-b:#5C7FBF; --il-c:#FFC83D; --il-d:#4FE0B3; --il-paper:#3B3470; --il-heart:#FF7FAE; 
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -145,6 +135,51 @@ section.board{padding-block:2.25rem;border-bottom:1px solid var(--rule);display:
 @media (max-width:560px){.opt{grid-template-columns:minmax(0,1fr) 3rem}.opt .bar{grid-column:1 / -1;grid-row:2}}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ── ポップ仕上げ ── */
+:root{--f-head:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;--f-body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;--r:14px;--line:2px solid var(--ink);--pop:4px 4px 0 var(--ink)}
+body{font-weight:500}
+h1,h2,h3,.topic .num,h2.row{font-family:var(--f-head);font-weight:400;letter-spacing:.02em}
+input,textarea,select,button{font-family:var(--f-body)}
+.wrap>h1,.cover h1,.mast h1{line-height:1.3}
+.mast h1{display:block;text-shadow:4px 4px 0 var(--ai-wash)}
+body{background-image:radial-gradient(var(--ai-wash) 1.5px,transparent 1.6px);background-size:20px 20px}
+
+.mast{border-bottom:var(--line)}
+.mast .kicker b{font-family:var(--f-head);background:var(--ink);color:var(--paper);padding:.1rem .6rem;border-radius:999px}
+.mast h1 small{display:table;text-shadow:none;background:var(--ai);color:#fff;padding:.1rem .7rem;border-radius:999px;transform:rotate(-2deg);margin-bottom:.6rem;font-size:.42em}
+.how li{border:var(--line);border-radius:12px;box-shadow:3px 3px 0 var(--ink)}
+.how li b{font-family:var(--f-head);font-weight:400}
+nav.toc{border-bottom:var(--line)}
+nav.toc a{font-weight:700;color:var(--ink);background:linear-gradient(transparent 70%,var(--ai-wash) 70%)}
+article.topic{border-bottom:var(--line)}
+.topic .num{display:inline-block;background:var(--mid);color:var(--ink);border:var(--line);border-radius:999px;padding:.05rem .8rem;justify-self:start;transform:rotate(-2deg);letter-spacing:.1em}
+.topic h2{font-size:1.6rem}
+.illus{border:var(--line);border-radius:18px;box-shadow:var(--pop)}
+.buzz{border:var(--line);border-radius:12px}
+.buzz .l{font-family:var(--f-head);font-weight:400}
+.path{border:var(--line);border-radius:var(--r);box-shadow:var(--pop)}
+.path .tag{font-family:var(--f-head);font-weight:400;font-size:1rem}
+.heart{border:1.5px solid var(--ink);border-radius:14px}
+.heart::after{border-left:1.5px solid var(--ink);border-top:1.5px solid var(--ink)}
+.point{background:var(--sheet);border:1.5px dashed var(--ink);border-radius:12px;padding:.6rem .8rem;max-width:none}
+.poll{border:var(--line);border-radius:var(--r)}
+.poll .q{font-family:var(--f-head);font-weight:400}
+.opt{border:1.5px solid var(--ink);border-radius:999px;padding:.45rem .9rem}
+.opt[aria-pressed="true"]{background:var(--ai-wash);box-shadow:3px 3px 0 var(--ink);border-color:var(--ink)}
+.opt .bar{background:var(--paper);border:1px solid var(--ink)}
+section.board{border-bottom:var(--line)}
+.pform{border:var(--line);border-radius:var(--r);box-shadow:var(--pop)}
+.pform select,.pform textarea{border:1.5px solid var(--ink);border-radius:12px}
+#pSubmit{border:var(--line);box-shadow:3px 3px 0 var(--ink);color:#fff}
+.chip{border:var(--line);font-weight:700}
+.chip[aria-pressed="true"]{background:var(--ai);color:#fff}
+.post{border:var(--line);border-radius:var(--r)}
+.post .ptopic{font-family:var(--f-head);font-weight:400}
+.wakaru{border:1.5px solid var(--ink);font-weight:700}
+.wakaru[aria-pressed="true"]{background:var(--ok);color:#fff;border-color:var(--ink)}
+.end h2{font-size:1.1rem}
+.illus .tx.big{font-family:var(--f-body);font-weight:900}
+.back{background:var(--ai);color:#fff;border:var(--line);box-shadow:var(--pop)}
 </style>
 
 <header class="mast wrap">
