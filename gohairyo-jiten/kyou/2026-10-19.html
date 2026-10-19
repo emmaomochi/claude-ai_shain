@@ -1,8 +1,8 @@
-<title>きょうのご配慮 10月19日号</title>
+<title>きょうのご配慮 10月19日号 β</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
 <style>
 /* Layout: ご配慮辞典の別冊。一段組みの記事で、話題ごとに「気持ちの分かれ道」を三段で見せる */
 :root{
@@ -27,6 +27,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ai);outline-offset:
 
 header.mast{padding-block:2.5rem 1.5rem;display:grid;gap:.9rem;border-bottom:1px solid var(--rule)}
 .mast .kicker{display:flex;flex-wrap:wrap;gap:.25rem 1rem;font-size:var(--step--1);color:var(--ink-soft);letter-spacing:.12em}
+.mast .kicker{align-items:center}
 .mast .kicker b{color:var(--ai);font-weight:700}
 .mast h1{font-family:var(--f-head);font-weight:900;font-size:clamp(1.9rem,6vw,2.8rem);line-height:1.25;margin:0;text-wrap:balance}
 .mast h1 small{display:block;font-size:.45em;font-weight:700;color:var(--ai);letter-spacing:.1em;margin-bottom:.35rem}
@@ -136,19 +137,20 @@ section.board{padding-block:2.25rem;border-bottom:1px solid var(--rule);display:
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 /* ── ポップ仕上げ ── */
-:root{--f-head:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;--f-body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;--r:14px;--line:2px solid var(--ink);--pop:4px 4px 0 var(--ink)}
+:root{--f-head:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;--f-body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;--r:14px;--line:2px solid var(--ink);--pop:4px 4px 0 var(--ink)}
 body{font-weight:500}
-h1,h2,h3,.topic .num,h2.row{font-family:var(--f-head);font-weight:400;letter-spacing:.02em}
+h1,h2,h3,.topic .num,h2.row{font-family:var(--f-head);font-weight:900;letter-spacing:.02em}
 input,textarea,select,button{font-family:var(--f-body)}
 .wrap>h1,.cover h1,.mast h1{line-height:1.3}
 .mast h1{display:block;text-shadow:4px 4px 0 var(--ai-wash)}
 body{background-image:radial-gradient(var(--ai-wash) 1.5px,transparent 1.6px);background-size:20px 20px}
 
 .mast{border-bottom:var(--line)}
+.mast .kicker{align-items:center}
 .mast .kicker b{font-family:var(--f-head);background:var(--ink);color:var(--paper);padding:.1rem .6rem;border-radius:999px}
 .mast h1 small{display:table;text-shadow:none;background:var(--ai);color:#fff;padding:.1rem .7rem;border-radius:999px;transform:rotate(-2deg);margin-bottom:.6rem;font-size:.42em}
 .how li{border:var(--line);border-radius:12px;box-shadow:3px 3px 0 var(--ink)}
-.how li b{font-family:var(--f-head);font-weight:400}
+.how li b{font-family:var(--f-head);font-weight:900}
 nav.toc{border-bottom:var(--line)}
 nav.toc a{font-weight:700;color:var(--ink);background:linear-gradient(transparent 70%,var(--ai-wash) 70%)}
 article.topic{border-bottom:var(--line)}
@@ -156,14 +158,14 @@ article.topic{border-bottom:var(--line)}
 .topic h2{font-size:1.6rem}
 .illus{border:var(--line);border-radius:18px;box-shadow:var(--pop)}
 .buzz{border:var(--line);border-radius:12px}
-.buzz .l{font-family:var(--f-head);font-weight:400}
+.buzz .l{font-family:var(--f-head);font-weight:900}
 .path{border:var(--line);border-radius:var(--r);box-shadow:var(--pop)}
-.path .tag{font-family:var(--f-head);font-weight:400;font-size:1rem}
+.path .tag{font-family:var(--f-head);font-weight:900;font-size:1rem}
 .heart{border:1.5px solid var(--ink);border-radius:14px}
 .heart::after{border-left:1.5px solid var(--ink);border-top:1.5px solid var(--ink)}
 .point{background:var(--sheet);border:1.5px dashed var(--ink);border-radius:12px;padding:.6rem .8rem;max-width:none}
 .poll{border:var(--line);border-radius:var(--r)}
-.poll .q{font-family:var(--f-head);font-weight:400}
+.poll .q{font-family:var(--f-head);font-weight:900}
 .opt{border:1.5px solid var(--ink);border-radius:999px;padding:.45rem .9rem}
 .opt[aria-pressed="true"]{background:var(--ai-wash);box-shadow:3px 3px 0 var(--ink);border-color:var(--ink)}
 .opt .bar{background:var(--paper);border:1px solid var(--ink)}
@@ -174,16 +176,19 @@ section.board{border-bottom:var(--line)}
 .chip{border:var(--line);font-weight:700}
 .chip[aria-pressed="true"]{background:var(--ai);color:#fff}
 .post{border:var(--line);border-radius:var(--r)}
-.post .ptopic{font-family:var(--f-head);font-weight:400}
+.post .ptopic{font-family:var(--f-head);font-weight:900}
 .wakaru{border:1.5px solid var(--ink);font-weight:700}
 .wakaru[aria-pressed="true"]{background:var(--ok);color:#fff;border-color:var(--ink)}
 .end h2{font-size:1.1rem}
 .illus .tx.big{font-family:var(--f-body);font-weight:900}
 .back{background:var(--ai);color:#fff;border:var(--line);box-shadow:var(--pop)}
+/* ベータ版 */
+.beta{display:inline-block;vertical-align:middle;font-family:var(--f-body);font-weight:900;font-size:.9rem;letter-spacing:.08em;line-height:1;background:var(--mid);color:var(--ink);border:var(--line);border-radius:999px;padding:.35rem .7rem;transform:rotate(-6deg);box-shadow:2px 2px 0 var(--ink);margin-left:.4rem}
+.betanote{margin:0;font-size:var(--step--1);color:var(--ink-soft);background:var(--sheet);border:1.5px dashed var(--ink);border-radius:12px;padding:.5rem .8rem;max-width:40em}
 </style>
 
 <header class="mast wrap">
-  <div class="kicker"><b>いまどきご配慮辞典 別冊</b><span>2026年10月19日（月）</span><span>Xの話題から</span></div>
+  <div class="kicker"><b>いまどきご配慮辞典 別冊</b><span class="beta">β版</span><span>2026年10月19日（月）</span><span>Xの話題から</span></div>
   <h1><small>きょうのご配慮</small>そのひと言、相手にはこう聞こえている</h1>
   <p>この週末から月曜にかけてXで話題になったことから、身近に起きそうな場面を6つ取り出しました。それぞれ、ありがちな返し、よかれと思った返し、こうするとよかった返しの3つで、相手の気持ちがどう変わるかを並べています。</p>
   <ul class="how" aria-label="読み方">
