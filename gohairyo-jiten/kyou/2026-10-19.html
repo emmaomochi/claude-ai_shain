@@ -1,0 +1,245 @@
+<title>きょうのご配慮 10月19日号</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: ご配慮辞典の別冊。一段組みの記事で、話題ごとに「気持ちの分かれ道」を三段で見せる */
+:root{
+  --paper:#f5f6f3; --sheet:#ffffff; --ink:#1f2328; --ink-soft:#5b6168; --rule:#d9dcd6;
+  --ai:#27466f; --ai-wash:#e6ecf4;
+  --ng:#9a3b32; --ng-wash:#f6e9e6;
+  --mid:#8a6417; --mid-wash:#f6efdf;
+  --ok:#2f6b4f; --ok-wash:#e5f1ea;
+  --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --step--1:.8125rem; --step-0:.9375rem; --step-1:1.125rem; --step-2:1.5rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
+  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
+  --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:var(--step-0);line-height:1.85}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--ai)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+
+header.mast{padding-block:2.5rem 1.5rem;display:grid;gap:.9rem;border-bottom:1px solid var(--rule)}
+.mast .kicker{display:flex;flex-wrap:wrap;gap:.25rem 1rem;font-size:var(--step--1);color:var(--ink-soft);letter-spacing:.12em}
+.mast .kicker b{color:var(--ai);font-weight:700}
+.mast h1{font-family:var(--f-head);font-weight:900;font-size:clamp(1.9rem,6vw,2.8rem);line-height:1.25;margin:0;text-wrap:balance}
+.mast h1 small{display:block;font-size:.45em;font-weight:700;color:var(--ai);letter-spacing:.1em;margin-bottom:.35rem}
+.mast p{margin:0;max-width:36em;color:var(--ink-soft)}
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:0;padding:0;list-style:none;font-size:var(--step--1)}
+.how li{padding:.5rem .7rem;border-radius:4px;line-height:1.6}
+.how li b{display:block;font-size:var(--step-0)}
+.how .n{background:var(--ng-wash)} .how .n b{color:var(--ng)}
+.how .m{background:var(--mid-wash)} .how .m b{color:var(--mid)}
+.how .o{background:var(--ok-wash)} .how .o b{color:var(--ok)}
+
+nav.toc{padding-block:1.25rem;border-bottom:1px solid var(--rule)}
+nav.toc ol{margin:0;padding-left:1.4em;display:grid;gap:.15rem}
+nav.toc a{text-decoration:none}
+nav.toc a:hover{text-decoration:underline}
+
+article.topic{padding-block:2.25rem;border-bottom:1px solid var(--rule);display:grid;gap:1rem;scroll-margin-top:1rem}
+.topic .num{font-family:var(--f-head);font-weight:900;color:var(--ai);font-size:var(--step--1);letter-spacing:.2em}
+.topic h2{font-family:var(--f-head);font-weight:700;font-size:var(--step-2);line-height:1.4;margin:0;text-wrap:balance}
+.buzz{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem .75rem;background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:.75rem .9rem;font-size:var(--step--1);line-height:1.7}
+.buzz .l{font-weight:700;color:var(--ai);white-space:nowrap}
+.buzz p{margin:0}
+.scene{margin:0;max-width:38em}
+.scene b{font-weight:700}
+
+.fork{display:grid;gap:.6rem}
+.path{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.75rem;border-radius:4px;padding:.8rem .9rem}
+.path .tag{font-weight:700;font-size:var(--step--1);line-height:1.5;letter-spacing:.04em}
+.path .tag span{display:block;font-weight:500;color:var(--ink-soft);letter-spacing:0}
+.path .body{display:grid;gap:.45rem;min-width:0}
+.say{margin:0;font-weight:700}
+.heart{margin:0;position:relative;padding:.45rem .75rem;border-radius:12px;background:var(--sheet);font-size:var(--step-0);line-height:1.7}
+.heart::before{content:"相手の心の声";display:block;font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.08em}
+.heart::after{content:"";position:absolute;left:1.1rem;top:-6px;width:12px;height:12px;background:var(--sheet);transform:rotate(45deg)}
+.p-ng{background:var(--ng-wash)} .p-ng .tag{color:var(--ng)}
+.p-mid{background:var(--mid-wash)} .p-mid .tag{color:var(--mid)}
+.p-ok{background:var(--ok-wash)} .p-ok .tag{color:var(--ok)}
+.point{margin:0;font-size:var(--step--1);color:var(--ink-soft);max-width:40em}
+.point b{color:var(--ink)}
+.point a{white-space:nowrap}
+
+section.end{padding-block:2rem 3.5rem;display:grid;gap:1rem;font-size:var(--step--1);color:var(--ink-soft)}
+.end h2{font-family:var(--f-head);font-size:var(--step-1);color:var(--ink);margin:0}
+.end p{margin:0;max-width:44em}
+.end ul{margin:0;padding-left:1.2em;display:grid;gap:.2rem}
+.end li{overflow-wrap:anywhere}
+.back{display:inline-block;font-size:var(--step-0);font-weight:700;text-decoration:none;border:1px solid var(--ai);border-radius:999px;padding:.35rem 1rem;justify-self:start}
+
+@media (max-width:560px){
+  .how{grid-template-columns:minmax(0,1fr)}
+  .path{grid-template-columns:minmax(0,1fr);gap:.35rem}
+  .path .tag span{display:inline;margin-left:.4rem}
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<header class="mast wrap">
+  <div class="kicker"><b>いまどきご配慮辞典 別冊</b><span>2026年10月19日（月）</span><span>Xの話題から</span></div>
+  <h1><small>きょうのご配慮</small>そのひと言、相手にはこう聞こえている</h1>
+  <p>この週末から月曜にかけてXで話題になったことから、身近に起きそうな場面を6つ取り出しました。それぞれ、ありがちな返し、よかれと思った返し、こうするとよかった返しの3つで、相手の気持ちがどう変わるかを並べています。</p>
+  <ul class="how" aria-label="読み方">
+    <li class="n"><b>▲ ありがち</b>つい口から出るひと言</li>
+    <li class="m"><b>△ よかれと思って</b>気をつかったつもりが裏目に</li>
+    <li class="o"><b>○ こうするとよかった</b>相手がほっとする返し</li>
+  </ul>
+</header>
+
+<nav class="toc wrap" aria-label="目次">
+  <ol>
+    <li><a href="#t1">月曜の朝の「行きたくない」</a></li>
+    <li><a href="#t2">寝坊して平謝りで入ってきた人</a></li>
+    <li><a href="#t3">機種変更でデータが全部消えた</a></li>
+    <li><a href="#t4">推し活にかけるお金</a></li>
+    <li><a href="#t5">家事を「手伝う」という言い方</a></li>
+    <li><a href="#t6">新しいラベル「〇〇おじさん」</a></li>
+  </ol>
+</nav>
+
+<main class="wrap">
+
+<article class="topic" id="t1">
+  <div class="num">その一</div>
+  <h2>月曜の朝の「行きたくない」</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>月曜の朝、「今日もがんばるぞい」「がんばろうね」と、憂鬱に立ち向かう投稿が続きました。</p></div>
+  <p class="scene"><b>場面：</b>朝、同僚や家族が「あー、行きたくない」とこぼした。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">「みんな同じだよ」「社会人なんだから」</p>
+      <p class="heart">愚痴ひとつ言わせてもらえないのか。もう言うのやめよう。</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">「大丈夫？何かあった？無理なら休んだほうがいいよ」</p>
+      <p class="heart">軽くこぼしただけなのに、大ごとになっちゃった。かえって気まずい。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「わかる、月曜はね。お昼なに食べよっか」</p>
+      <p class="heart">わかってもらえた。楽しみがひとつできて、少し肩が軽くなった。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>弱音は、出てきた重さのまま受け取る。何日も続くようなら、そのとき改めて「最近どう？」と声をかければ十分です。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#ganbatte">→ 辞典「頑張って」</a></p>
+</article>
+
+<article class="topic" id="t2">
+  <div class="num">その二</div>
+  <h2>寝坊して平謝りで入ってきた人</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>朝の生放送のバラエティ番組で、出演者が寝坊で遅刻し、土下座で登場した場面が笑いを呼びました。番組だからこそ成り立つ笑いです。</p></div>
+  <p class="scene"><b>場面：</b>職場で、寝坊した同僚が「すみません！」と謝りながら入ってきた。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">みんなの前で「いい度胸だね」「何時に起きたの？」と、しばらくいじる</p>
+      <p class="heart">笑いにされても、恥ずかしさは消えない。今日一日、居づらい。</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">気をつかって、何もなかったかのように完全にスルーする</p>
+      <p class="heart">誰も何も言わない。もしかしてすごく怒ってる？ずっと気になる。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「おはよう、大丈夫だった？さっきの打ち合わせの件だけ共有しとくね」</p>
+      <p class="heart">責められなかった。早く取り戻そう。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>本人がいちばん反省しています。短く受け止めて、仕事に戻れる道をつくる。注意が必要なときは、あとで一対一で。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#ijiri">→ 辞典「いじり」</a></p>
+</article>
+
+<article class="topic" id="t3">
+  <div class="num">その三</div>
+  <h2>機種変更でデータが全部消えた</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>iPhoneのデータ移行中に画面が真っ暗になり、移行が終わる前に旧端末のデータがすべて消えてしまった、という投稿が話題になりました。</p></div>
+  <p class="scene"><b>場面：</b>友人が「スマホの写真、全部消えた…」と落ち込んでいる。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">「バックアップ取ってなかったの？」</p>
+      <p class="heart">わかってるよ。今それを言われても写真は戻らない。二重に落ち込む。</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">頼まれていないのに、復旧方法の記事やアプリを次々と送る</p>
+      <p class="heart">それ、もう試した。全部やってもダメだったのに、責められている気がしてきた。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「それはショックすぎる…。何か手伝えることある？」</p>
+      <p class="heart">味方がいる。落ち着いたら、どうすればいいか聞いてみよう。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>正論や助言は、相手が「どうしたらいい？」と聞いてくれてから。まずは気持ちのほうに返事をします。</p>
+</article>
+
+<article class="topic" id="t4">
+  <div class="num">その四</div>
+  <h2>推し活にかけるお金</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>チケット代や遠征費など、推し活の出費を語り合う投稿が共感を集めました。</p></div>
+  <p class="scene"><b>場面：</b>同僚が「週末、推しのライブで遠征してきた」とうれしそうに話している。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">「そんなにお金使ってどうするの」「将来のために貯金したら？」</p>
+      <p class="heart">大事にしているものを否定された。この人にはもう話さない。</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">話を盛り上げようとして「すごい！全部でいくら使ったの？」</p>
+      <p class="heart">金額で測られている気がする。楽しかった話をしたかったのに。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「いいね！どうだった？どこが好きなの？」</p>
+      <p class="heart">話してよかった。この人とはまた話したい。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>お金の使い方は本人が決めること。心配なときは、金額ではなく「最近ちゃんと寝てる？」と体や生活のほうを気にかけます。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#nenshu">→ 辞典「年収・家賃を聞く」</a></p>
+</article>
+
+<article class="topic" id="t5">
+  <div class="num">その五</div>
+  <h2>家事を「手伝う」という言い方</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>ラジオの特別放送で家事分担がテーマになり、パーソナリティとリスナーの対話に反応が集まりました。</p></div>
+  <p class="scene"><b>場面：</b>パートナーが夕飯の支度と洗濯を同時にしている。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">「何か手伝おうか？」「言ってくれればやったのに」</p>
+      <p class="heart">家事は私の仕事で、あなたはお手伝いなの？言わないと動かないの？</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">皿洗いを済ませて「やっといたよ！」と報告する</p>
+      <p class="heart">ありがたいけど、ほめるところまでこっちの仕事？排水口とコンロはそのままだし。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「今週、どれを担当しようか」と家事を一緒に書き出して、持ち場を決める</p>
+      <p class="heart">一緒に暮らしているって感じがする。頭の中の家事リストを一人で抱えなくていい。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>ゴミ袋の補充、献立を考える、日用品の在庫を見るなど、名前のない家事も分担に入れます。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#okaasan">→ 辞典「お母さんの手作り？」</a></p>
+</article>
+
+<article class="topic" id="t6">
+  <div class="num">その六</div>
+  <h2>新しいラベル「〇〇おじさん」</h2>
+  <div class="buzz"><span class="l">Xでは</span><p>漫画の最新話をきっかけに、昔の作品やゲームを何度も楽しむ人を指す「既知コンテンツ反芻おじさん」という言葉が広がりました。「わかる」と自分に重ねる声が多い一方で、「惰性になっていないか」と不安を語る投稿も目立ちました。</p></div>
+  <p class="scene"><b>場面：</b>先輩が、昔のアニメをまた最初から観ていると話している。</p>
+  <div class="fork">
+    <div class="path p-ng"><div class="tag">▲ ありがち</div><div class="body">
+      <p class="say">「それ完全に反芻おじさんじゃないですか」と笑う</p>
+      <p class="heart">好きなものを楽しんでいるだけなのに、痛い人扱いか。</p></div></div>
+    <div class="path p-mid"><div class="tag">△ よかれと思って</div><div class="body">
+      <p class="say">「新しいのも観たほうがいいですよ、おすすめ送りますね」</p>
+      <p class="heart">今の楽しみ方じゃダメなのかな。なんだか直されている気分。</p></div></div>
+    <div class="path p-ok"><div class="tag">○ こうするとよかった</div><div class="body">
+      <p class="say">「何回観ても面白いのってありますよね。どこが好きなんですか？」</p>
+      <p class="heart">わかってくれた。ついでに最近のおすすめも聞いてみようかな。</p></div></div>
+  </div>
+  <p class="point"><b>ポイント：</b>ラベルは、自分に貼って笑うぶんには自由です。他人に貼ると、からかいになります。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#sedai">→ 辞典「Z世代は・ゆとりだから」</a></p>
+</article>
+
+</main>
+
+<section class="end wrap">
+  <h2>この記事について</h2>
+  <p>Xの画面はログインが必要なため直接は見ておらず、Xの投稿をまとめているYahoo!リアルタイム検索の「SNSのバズまとめ」をもとに話題を選びました。まとめの要約は自動生成のものも含みます。登場する場面と心の声は、話題をヒントにした例です。実際の当事者を評価したり責めたりするものではありません。</p>
+  <ul>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/af96c50fd8e344f59771fabea2c9244f-1792370400">「月曜日」憂鬱に立ち向かう声が続出（Yahoo!リアルタイム検索）</a></li>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/d1097160de2f435b8be6717e3dd723c0-1792375500">寝坊で生放送に遅刻、土下座シーンが話題（同）</a></li>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/post/002-0ebac9964f32b4a76a6480b7">データ移行中に旧iPhoneのデータが消えたという投稿（同）</a></li>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/post/002-36063c99c3ee52341cd338c0">推し活の出費を語り合う投稿（同）</a></li>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/4d8e10a6224047548ac55cc41a1ab923-1792376100">ラジオ特別放送の家事分担トーク（同）</a></li>
+    <li><a href="https://search.yahoo.co.jp/realtime/search/matome/6b3b57b55c0e474aa16db800419aca1c-1792365900">「既知コンテンツ反芻おじさん」話題沸騰（同）</a></li>
+  </ul>
+  <a class="back" href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr">いまどきご配慮辞典をひらく</a>
+</section>
