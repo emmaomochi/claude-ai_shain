@@ -14,15 +14,19 @@
   --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   --step--1:.8125rem; --step-0:.9375rem; --step-1:1.125rem; --step-2:1.5rem;
+  --il-bg:#e9eef4; --il-floor:#d9e1ea; --il-sky:#cfe0f2; --il-skin:#f2d4bb; --il-hair:#363b44; --il-line:#2a2f37;
+  --il-a:#3a5f93; --il-b:#9db3cf; --il-c:#e0b04f; --il-d:#77a68a; --il-paper:#ffffff; --il-heart:#d9707a;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
   --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
+  --il-bg:#1f2630; --il-floor:#27303b; --il-sky:#34465e; --il-skin:#dcbca2; --il-hair:#0f1216; --il-line:#e3e6ea; --il-a:#6f93c4; --il-b:#4b6383; --il-c:#c99b42; --il-d:#5f9077; --il-paper:#2a313b; --il-heart:#d0727c;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#15181c; --sheet:#1c2026; --ink:#e7e9ec; --ink-soft:#a3a9b1; --rule:#30363e;
   --ai:#8fb0dc; --ai-wash:#1f2a3a; --ng:#e59a8f; --ng-wash:#33211f; --mid:#dcb86a; --mid-wash:#2f2818; --ok:#88c9a6; --ok-wash:#1b2e25;
+  --il-bg:#1f2630; --il-floor:#27303b; --il-sky:#34465e; --il-skin:#dcbca2; --il-hair:#0f1216; --il-line:#e3e6ea; --il-a:#6f93c4; --il-b:#4b6383; --il-c:#c99b42; --il-d:#5f9077; --il-paper:#2a313b; --il-heart:#d0727c;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -86,6 +90,59 @@ section.end{padding-block:2rem 3.5rem;display:grid;gap:1rem;font-size:var(--step
   .path{grid-template-columns:minmax(0,1fr);gap:.35rem}
   .path .tag span{display:inline;margin-left:.4rem}
 }
+/* イラスト */
+.illus{margin:0;border-radius:6px;overflow:hidden}
+.illus svg{display:block;width:100%;height:auto}
+.illus .bg{fill:var(--il-bg)} .illus .fl{fill:var(--il-floor)} .illus .sky{fill:var(--il-sky)}
+.illus .sk{fill:var(--il-skin)} .illus .hr{fill:var(--il-hair)} .illus .ln{fill:var(--il-line)}
+.illus .cA{fill:var(--il-a)} .illus .cB{fill:var(--il-b)} .illus .cC{fill:var(--il-c)} .illus .cD{fill:var(--il-d)}
+.illus .pp{fill:var(--il-paper)} .illus .bd{stroke:var(--il-line);stroke-width:1.4}
+.illus .st{fill:none;stroke:var(--il-line);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.illus .st.thick{stroke-width:2.6} .illus .st.light{stroke:var(--il-paper);stroke-width:3} .illus .st.dash{stroke-dasharray:3 3}
+.illus .dark{fill:#0d1014} .illus .sw{fill:var(--il-sky)} .illus .glow{fill:var(--il-c)} .illus .ht{fill:var(--il-heart)}
+.illus .tx{fill:var(--il-line);font-family:var(--f-body);font-size:11px;font-weight:700}
+.illus .tx.big{font-family:var(--f-head);font-size:20px} .illus .tx.sm{font-size:9px}
+/* 投票 */
+.poll{display:grid;gap:.5rem;border:1px solid var(--rule);border-radius:4px;padding:.8rem .9rem;background:var(--sheet)}
+.poll .q{margin:0;font-weight:700}
+.opts{display:grid;gap:.4rem}
+.opt{position:relative;display:grid;grid-template-columns:10.5rem minmax(0,1fr) 3rem;align-items:center;gap:.6rem;font:inherit;font-size:var(--step--1);font-weight:700;text-align:left;background:transparent;border:1px solid var(--rule);border-radius:4px;padding:.4rem .6rem;color:var(--ink);cursor:pointer}
+.opt:disabled{cursor:default}
+.opt .bar{height:.5rem;border-radius:999px;background:var(--paper);overflow:hidden}
+.opt .bar i{display:block;height:100%;width:0;border-radius:999px;transition:width .4s}
+.opt .pct{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-soft);font-weight:500}
+.o-ng .bar i{background:var(--ng)} .o-mid .bar i{background:var(--mid)} .o-ok .bar i{background:var(--ok)}
+.opt[aria-pressed="true"]{border-color:var(--ai);box-shadow:inset 0 0 0 1px var(--ai)}
+.poll .meta{margin:0;font-size:var(--step--1);color:var(--ink-soft)}
+/* 投稿 */
+section.board{padding-block:2.25rem;border-bottom:1px solid var(--rule);display:grid;gap:1rem;scroll-margin-top:1rem}
+.board h2{font-family:var(--f-head);font-weight:700;font-size:var(--step-2);margin:0}
+.board .lead{margin:0;max-width:38em;color:var(--ink-soft)}
+.pform{display:grid;gap:.4rem;background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:1rem}
+.pform label{font-size:var(--step--1);font-weight:700;color:var(--ink-soft)}
+.pform select,.pform textarea{font:inherit;width:100%;padding:.5rem .7rem;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink)}
+.pform textarea{resize:vertical;line-height:1.7}
+.pform select:focus-visible,.pform textarea:focus-visible{outline:2px solid var(--ai);outline-offset:1px}
+.frow{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.count{font-size:var(--step--1);color:var(--ink-soft);font-variant-numeric:tabular-nums}
+#pSubmit{font:inherit;font-weight:700;background:var(--ai);color:var(--sheet);border:none;border-radius:999px;padding:.45rem 1.2rem;cursor:pointer}
+#pSubmit:disabled{opacity:.5;cursor:default}
+.msg{margin:0;font-size:var(--step--1);color:var(--ok);min-height:1.2em}
+.msg.err{color:var(--ng)}
+.note{margin:0;font-size:var(--step--1);color:var(--ink-soft)}
+.sortrow{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;font-size:var(--step--1);color:var(--ink-soft)}
+.chip{font:inherit;font-size:var(--step--1);padding:.15rem .7rem;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ai);border-color:var(--ai);color:var(--sheet)}
+.posts{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.post{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:.75rem .9rem;display:grid;gap:.4rem}
+.post .ptopic{font-size:var(--step--1);color:var(--ai);font-weight:700}
+.post .ptext{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.post .pfoot{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;font-size:var(--step--1);color:var(--ink-soft)}
+.wakaru{font:inherit;font-size:var(--step--1);border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:999px;padding:.1rem .7rem;cursor:pointer;font-variant-numeric:tabular-nums}
+.wakaru[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-wash);color:var(--ok)}
+.del{font:inherit;font-size:var(--step--1);background:none;border:none;color:var(--ink-soft);text-decoration:underline;cursor:pointer;margin-left:auto;padding:0}
+.posts .empty{color:var(--ink-soft);font-size:var(--step-0)}
+@media (max-width:560px){.opt{grid-template-columns:minmax(0,1fr) 3rem}.opt .bar{grid-column:1 / -1;grid-row:2}}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -109,6 +166,7 @@ html{scroll-behavior:smooth}
     <li><a href="#t4">推し活にかけるお金</a></li>
     <li><a href="#t5">家事を「手伝う」という言い方</a></li>
     <li><a href="#t6">新しいラベル「〇〇おじさん」</a></li>
+    <li><a href="#board">みんなの「こんな配慮もあったら良かった」</a></li>
   </ol>
 </nav>
 
@@ -117,6 +175,7 @@ html{scroll-behavior:smooth}
 <article class="topic" id="t1">
   <div class="num">その一</div>
   <h2>月曜の朝の「行きたくない」</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="月曜の朝、ため息をつく人に、同僚がお弁当を見せて「お昼なに食べよっか」と声をかけている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><rect class="sky" x="134" y="22" width="40" height="38" rx="2"/><circle class="cC" cx="154" cy="60" r="11"/><rect class="pp" x="132" y="58" width="44" height="5"/><path class="st" d="M154,22 v38 M134,41 h40"/><g><rect class="pp bd" x="272" y="92" width="34" height="40" rx="3"/><rect class="cA" x="272" y="92" width="34" height="10" rx="3"/><text class="tx big" x="289" y="125" text-anchor="middle">月</text></g><g transform="translate(96,104) rotate(14)"><rect class="cC" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><path class="st" d="M-7,1 q2,2 4,0 M3,1 q2,2 4,0"/><path class="st" d="M-3,8 q3,-3 6,0"/></g><path class="cD" d="M116,132 h20 v14 h-20z"/><path class="st" d="M136,136 q6,0 6,5 q0,5 -6,5"/><g transform="translate(222,90) rotate(0)"><rect class="cA" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-15,10 L-14,-1 A14,14 0 0 1 14,-1 L15,10 Q12,2 10,-3 Q0,-7 -10,-3 Q-12,2 -15,10Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g><rect class="cD" x="238" y="116" width="26" height="16" rx="3"/><rect class="pp" x="238" y="122" width="26" height="3"/></g><g><path class="pp bd" d="M40,40 h74 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H94 L88,74 L82,64 H40 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="77.0" y="56.5" text-anchor="middle">行きたくない…</text></g><g><path class="pp bd" d="M190,30 h94 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H220 L214,64 L208,54 H190 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="237.0" y="46.5" text-anchor="middle">お昼なに食べよっか</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>月曜の朝、「今日もがんばるぞい」「がんばろうね」と、憂鬱に立ち向かう投稿が続きました。</p></div>
   <p class="scene"><b>場面：</b>朝、同僚や家族が「あー、行きたくない」とこぼした。</p>
   <div class="fork">
@@ -130,12 +189,14 @@ html{scroll-behavior:smooth}
       <p class="say">「わかる、月曜はね。お昼なに食べよっか」</p>
       <p class="heart">わかってもらえた。楽しみがひとつできて、少し肩が軽くなった。</p></div></div>
   </div>
+  <div class="poll" data-topic="t1"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>弱音は、出てきた重さのまま受け取る。何日も続くようなら、そのとき改めて「最近どう？」と声をかければ十分です。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#ganbatte">→ 辞典「頑張って」</a></p>
 </article>
 
 <article class="topic" id="t2">
   <div class="num">その二</div>
   <h2>寝坊して平謝りで入ってきた人</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="寝坊して頭を下げながら入ってきた人に、同僚が「おはよう、大丈夫だった？」と迎えている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><rect class="pp bd" x="18" y="40" width="54" height="106" rx="2"/><circle class="ln" cx="62" cy="96" r="3"/><g><circle class="pp bd" cx="146" cy="40" r="17"/><path class="st thick" d="M146,40 V28 M146,40 L156,46"/><circle class="ln" cx="146" cy="40" r="2"/></g><g transform="translate(98,92) rotate(-28)"><rect class="cB" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-8,-3 l5,-2.5 M8,-3 l-5,-2.5"/><path class="st" d="M-3,8 q3,-2 6,0"/></g><path class="sw" d="M122,70 q4,6 0,9 q-4,-3 0,-9z M130,84 q3,5 0,7 q-3,-2 0,-7z"/><rect class="cC" x="208" y="122" width="96" height="8" rx="2"/><rect class="ln" x="250" y="104" width="30" height="18" rx="2"/><rect class="sky" x="253" y="107" width="24" height="12"/><g transform="translate(234,88) rotate(0)"><rect class="cA" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><circle class="hr" cx="0" cy="-15" r="6"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g><path class="pp bd" d="M56,8 h62 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H94 L88,58 L82,32 H56 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="87.0" y="24.5" text-anchor="middle">すみません！</text></g><g><path class="pp bd" d="M186,20 h112 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H230 L224,64 L218,44 H186 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="242.0" y="36.5" text-anchor="middle">おはよう、大丈夫だった？</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>朝の生放送のバラエティ番組で、出演者が寝坊で遅刻し、土下座で登場した場面が笑いを呼びました。番組だからこそ成り立つ笑いです。</p></div>
   <p class="scene"><b>場面：</b>職場で、寝坊した同僚が「すみません！」と謝りながら入ってきた。</p>
   <div class="fork">
@@ -149,12 +210,14 @@ html{scroll-behavior:smooth}
       <p class="say">「おはよう、大丈夫だった？さっきの打ち合わせの件だけ共有しとくね」</p>
       <p class="heart">責められなかった。早く取り戻そう。</p></div></div>
   </div>
+  <div class="poll" data-topic="t2"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>本人がいちばん反省しています。短く受け止めて、仕事に戻れる道をつくる。注意が必要なときは、あとで一対一で。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#ijiri">→ 辞典「いじり」</a></p>
 </article>
 
 <article class="topic" id="t3">
   <div class="num">その三</div>
   <h2>機種変更でデータが全部消えた</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="スマホのデータが消えて頭を抱える人の肩に、友人がそっと手を置いて「それはショックすぎる…」と声をかけている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><g transform="rotate(-8 64 96)"><rect class="ln" x="40" y="54" width="48" height="86" rx="8"/><rect class="dark" x="44" y="62" width="40" height="68" rx="3"/><path class="st light" d="M54,84 l20,20 M74,84 l-20,20"/></g><g class="fly"><rect class="pp bd" x="20" y="30" width="16" height="13" rx="2"/><rect class="pp bd" x="96" y="26" width="14" height="11" rx="2"/><rect class="pp bd" x="104" y="50" width="12" height="10" rx="2"/></g><g transform="translate(160,96) rotate(6)"><rect class="cC" x="-17" y="16" width="34" height="50" rx="16"/><path class="sk" d="M-22,-6 q-6,-14 6,-16 l4,8z M22,-6 q6,-14 -6,-16 l-4,8z"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-15,10 L-14,-1 A14,14 0 0 1 14,-1 L15,10 Q12,2 10,-3 Q0,-7 -10,-3 Q-12,2 -15,10Z"/><path class="st" d="M-7,1 q2,2 4,0 M3,1 q2,2 4,0"/><path class="st" d="M-3,8 q3,-3 6,0"/></g><g transform="translate(240,90) rotate(0)"><rect class="cD" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-8,-3 l5,-2.5 M8,-3 l-5,-2.5"/><path class="st" d="M-3,8 q3,-2 6,0"/></g><path class="sk" d="M224,112 q-30,-6 -50,4 l2,8 q22,-6 46,-2z"/><g><path class="pp bd" d="M196,22 h104 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H242 L236,66 L230,46 H196 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="248.0" y="38.5" text-anchor="middle">それはショックすぎる…</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>iPhoneのデータ移行中に画面が真っ暗になり、移行が終わる前に旧端末のデータがすべて消えてしまった、という投稿が話題になりました。</p></div>
   <p class="scene"><b>場面：</b>友人が「スマホの写真、全部消えた…」と落ち込んでいる。</p>
   <div class="fork">
@@ -168,12 +231,14 @@ html{scroll-behavior:smooth}
       <p class="say">「それはショックすぎる…。何か手伝えることある？」</p>
       <p class="heart">味方がいる。落ち着いたら、どうすればいいか聞いてみよう。</p></div></div>
   </div>
+  <div class="poll" data-topic="t3"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>正論や助言は、相手が「どうしたらいい？」と聞いてくれてから。まずは気持ちのほうに返事をします。</p>
 </article>
 
 <article class="topic" id="t4">
   <div class="num">その四</div>
   <h2>推し活にかけるお金</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="推しのライブ帰りでペンライトを持ってうれしそうな人に、同僚が「どこが好きなの？」と聞いている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><g><rect class="cB" x="18" y="104" width="38" height="44" rx="5"/><rect class="pp" x="22" y="116" width="30" height="4"/><path class="st" d="M30,104 v-8 h14 v8"/></g><g transform="rotate(-10 76 40)"><rect class="pp bd" x="58" y="30" width="44" height="22" rx="3"/><path class="st dash" d="M90,30 v22"/><text class="tx sm" x="74" y="45" text-anchor="middle">LIVE</text></g><g transform="translate(110,94) rotate(0)"><rect class="cA" x="-17" y="16" width="34" height="50" rx="16"/><path class="sk" d="M14,26 l16,-24 l5,3 l-14,26z"/><circle class="sk" cx="0" cy="0" r="14"/><circle class="hr" cx="0" cy="-15" r="6"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><path class="st" d="M-7,2 q2,-3 4,0 M3,2 q2,-3 4,0"/><path class="ln" d="M-4,6 h8 q0,5 -4,5 q-4,0 -4,-5z"/></g><rect class="glow" x="122" y="40" width="7" height="34" rx="3.5" transform="rotate(30 126 70)"/><path class="ht" d="M150,44 c-6,-8 -16,-2 -10,6 l10,9 l10,-9 c6,-8 -4,-14 -10,-6z"/><g transform="translate(234,94) rotate(0)"><rect class="cC" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g><path class="pp bd" d="M178,24 h108 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H228 L222,68 L216,48 H178 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="232.0" y="40.5" text-anchor="middle">どう？どこが好きなの？</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>チケット代や遠征費など、推し活の出費を語り合う投稿が共感を集めました。</p></div>
   <p class="scene"><b>場面：</b>同僚が「週末、推しのライブで遠征してきた」とうれしそうに話している。</p>
   <div class="fork">
@@ -187,12 +252,14 @@ html{scroll-behavior:smooth}
       <p class="say">「いいね！どうだった？どこが好きなの？」</p>
       <p class="heart">話してよかった。この人とはまた話したい。</p></div></div>
   </div>
+  <div class="poll" data-topic="t4"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>お金の使い方は本人が決めること。心配なときは、金額ではなく「最近ちゃんと寝てる？」と体や生活のほうを気にかけます。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#nenshu">→ 辞典「年収・家賃を聞く」</a></p>
 </article>
 
 <article class="topic" id="t5">
   <div class="num">その五</div>
   <h2>家事を「手伝う」という言い方</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="二人で「今週の担当」と書いたボードを見ながら、どの家事を担当するか話し合っている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><g><rect class="pp bd" x="112" y="18" width="96" height="78" rx="4"/><text class="tx" x="160" y="36" text-anchor="middle">今週の担当</text><rect class="pp bd" x="122" y="46" width="9" height="9" rx="1"/><path class="st" d="M137,51 h40"/><circle class="cA" cx="192" cy="51" r="5"/><rect class="pp bd" x="122" y="62" width="9" height="9" rx="1"/><path class="st" d="M137,67 h40"/><circle class="cC" cx="192" cy="67" r="5"/><rect class="pp bd" x="122" y="78" width="9" height="9" rx="1"/><path class="st" d="M137,83 h40"/><circle class="cA" cx="192" cy="83" r="5"/></g><g transform="translate(60,94) rotate(0)"><rect class="cA" x="-17" y="16" width="34" height="50" rx="16"/><path class="sk" d="M16,26 l34,-30 l4,4 l-32,32z"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g transform="translate(262,94) rotate(0)"><rect class="cC" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-15,10 L-14,-1 A14,14 0 0 1 14,-1 L15,10 Q12,2 10,-3 Q0,-7 -10,-3 Q-12,2 -15,10Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g><path class="cB" d="M222,132 h30 l-4,16 h-22z"/><path class="pp" d="M226,128 q11,-8 22,0z"/></g><g><rect class="ln" x="16" y="126" width="30" height="20" rx="4"/><path class="st thick" d="M12,130 h4 M46,130 h4"/></g><g><path class="pp bd" d="M18,26 h82 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H58 L52,66 L46,50 H18 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="59.0" y="42.5" text-anchor="middle">どれを担当しようか</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>ラジオの特別放送で家事分担がテーマになり、パーソナリティとリスナーの対話に反応が集まりました。</p></div>
   <p class="scene"><b>場面：</b>パートナーが夕飯の支度と洗濯を同時にしている。</p>
   <div class="fork">
@@ -206,12 +273,14 @@ html{scroll-behavior:smooth}
       <p class="say">「今週、どれを担当しようか」と家事を一緒に書き出して、持ち場を決める</p>
       <p class="heart">一緒に暮らしているって感じがする。頭の中の家事リストを一人で抱えなくていい。</p></div></div>
   </div>
+  <div class="poll" data-topic="t5"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>ゴミ袋の補充、献立を考える、日用品の在庫を見るなど、名前のない家事も分担に入れます。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#okaasan">→ 辞典「お母さんの手作り？」</a></p>
 </article>
 
 <article class="topic" id="t6">
   <div class="num">その六</div>
   <h2>新しいラベル「〇〇おじさん」</h2>
+  <figure class="illus"><svg viewBox="0 0 320 180" role="img" aria-label="ソファで昔のアニメをまた第1話から観て楽しむ先輩に、後輩が「どこが好きなんですか？」と聞いている"><rect class="bg" width="320" height="180" rx="6"/><rect class="fl" y="146" width="320" height="34"/><g><rect class="ln" x="196" y="40" width="104" height="66" rx="5"/><rect class="sky" x="202" y="46" width="92" height="54" rx="2"/><path class="st thick" d="M262,73 a14,14 0 1 1 -5,-11"/><path class="ln" d="M259,54 l1,10 l-9,-2z"/><text class="tx sm" x="226" y="94" text-anchor="middle">第1話</text><rect class="ln" x="240" y="106" width="16" height="10"/></g><path class="cB" d="M20,118 h120 q8,0 8,8 v20 h-136 v-20 q0,-8 8,-8z"/><rect class="cB" x="14" y="104" width="12" height="42" rx="5"/><rect class="cB" x="134" y="104" width="12" height="42" rx="5"/><g transform="translate(64,88) rotate(0)"><rect class="cD" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><path class="st" d="M-7,2 q2,-3 4,0 M3,2 q2,-3 4,0"/><path class="ln" d="M-4,6 h8 q0,5 -4,5 q-4,0 -4,-5z"/></g><rect class="ln" x="80" y="112" width="22" height="12" rx="6"/><g transform="translate(170,100) rotate(0)"><rect class="cA" x="-17" y="16" width="34" height="50" rx="16"/><circle class="sk" cx="0" cy="0" r="14"/><circle class="hr" cx="0" cy="-15" r="6"/><path class="hr" d="M-14,0 A14,14 0 0 1 14,0 Q8,-6 0,-5 Q-8,-6 -14,0Z"/><circle class="ln" cx="-5" cy="1" r="1.7"/><circle class="ln" cx="5" cy="1" r="1.7"/><path class="st" d="M-4,6 q4,4 8,0"/></g><g><path class="pp bd" d="M114,12 h126 a12,12 0 0 1 12,12 a12,12 0 0 1 -12,12 H168 L162,82 L156,36 H114 a12,12 0 0 1 -12,-12 a12,12 0 0 1 12,-12z"/><text class="tx" x="177.0" y="28.5" text-anchor="middle">どこが好きなんですか？</text></g></svg></figure>
   <div class="buzz"><span class="l">Xでは</span><p>漫画の最新話をきっかけに、昔の作品やゲームを何度も楽しむ人を指す「既知コンテンツ反芻おじさん」という言葉が広がりました。「わかる」と自分に重ねる声が多い一方で、「惰性になっていないか」と不安を語る投稿も目立ちました。</p></div>
   <p class="scene"><b>場面：</b>先輩が、昔のアニメをまた最初から観ていると話している。</p>
   <div class="fork">
@@ -225,10 +294,35 @@ html{scroll-behavior:smooth}
       <p class="say">「何回観ても面白いのってありますよね。どこが好きなんですか？」</p>
       <p class="heart">わかってくれた。ついでに最近のおすすめも聞いてみようかな。</p></div></div>
   </div>
+  <div class="poll" data-topic="t6"><p class="q">あなたなら、どれを言っちゃいそう？</p><div class="opts"><button type="button" class="opt o-ng" data-v="ng">▲ ありがち<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-mid" data-v="mid">△ よかれと思って<span class="bar"><i></i></span><span class="pct"></span></button><button type="button" class="opt o-ok" data-v="ok">○ こうするとよかった<span class="bar"><i></i></span><span class="pct"></span></button></div><p class="meta"></p></div>
   <p class="point"><b>ポイント：</b>ラベルは、自分に貼って笑うぶんには自由です。他人に貼ると、からかいになります。<a href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr#sedai">→ 辞典「Z世代は・ゆとりだから」</a></p>
 </article>
 
 </main>
+
+<section class="board wrap" id="board" aria-labelledby="board-h">
+  <h2 id="board-h">こんな配慮もあったら良かった</h2>
+  <p class="lead">きょうの場面や、あなたの身近な出来事で「こうしてもらえたらうれしかった」「こう言えばよかった」を教えてください。名前は誰にも表示されません。</p>
+  <form id="postForm" class="pform" hidden>
+    <label for="pTopic">どの場面について？</label>
+    <select id="pTopic">
+      <option value="">そのほか・身近な出来事</option>
+      <option value="t1">月曜の朝の「行きたくない」</option>
+      <option value="t2">寝坊して平謝りで入ってきた人</option>
+      <option value="t3">機種変更でデータが全部消えた</option>
+      <option value="t4">推し活にかけるお金</option>
+      <option value="t5">家事を「手伝う」という言い方</option>
+      <option value="t6">新しいラベル「〇〇おじさん」</option>
+    </select>
+    <label for="pText">こんな配慮もあったら良かった</label>
+    <textarea id="pText" rows="3" maxlength="200" placeholder="例：遅刻したとき、会議の資料だけ先に送っておいてくれた先輩がいて、すごく助かった"></textarea>
+    <div class="frow"><span id="pCount" class="count">0 / 200</span><button type="submit" id="pSubmit">匿名で投稿する</button></div>
+    <p id="pMsg" class="msg" role="status"></p>
+  </form>
+  <p id="boardNote" class="note">投稿と投票は、このページを共有された方がサインインして開くと使えます。</p>
+  <div class="sortrow" id="sortRow" hidden><span>並べ方</span><button type="button" class="chip" data-sort="new" aria-pressed="true">新着順</button><button type="button" class="chip" data-sort="top" aria-pressed="false">「わかる」が多い順</button></div>
+  <ul id="posts" class="posts"></ul>
+</section>
 
 <section class="end wrap">
   <h2>この記事について</h2>
@@ -243,3 +337,129 @@ html{scroll-behavior:smooth}
   </ul>
   <a class="back" href="https://claude.ai/artifact/XH8xA8eDXKkBZ1S2KHKeUr">いまどきご配慮辞典をひらく</a>
 </section>
+
+<script>
+const TOPICS={t1:"月曜の朝の「行きたくない」",t2:"寝坊して平謝りで入ってきた人",t3:"機種変更でデータが全部消えた",t4:"推し活にかけるお金",t5:"家事を「手伝う」という言い方",t6:"新しいラベル「〇〇おじさん」"};
+const st={db:null,uid:null,canWrite:false,isOwner:false,votes:[],my:{topics:{},posts:{}},posts:[],mine:[],sort:"new",confirmDel:null};
+const $=s=>document.querySelector(s);
+
+function renderPolls(){
+  document.querySelectorAll(".poll").forEach(el=>{
+    const t=el.dataset.topic,c={ng:0,mid:0,ok:0};
+    st.votes.forEach(v=>{const x=v.topics&&v.topics[t];if(x in c)c[x]++});
+    const total=c.ng+c.mid+c.ok,mine=st.my.topics[t];
+    el.querySelectorAll(".opt").forEach(b=>{
+      const v=b.dataset.v,pct=total?Math.round(c[v]/total*100):0;
+      b.querySelector(".bar i").style.width=pct+"%";
+      b.querySelector(".pct").textContent=total?pct+"%":"";
+      b.setAttribute("aria-pressed",mine===v);
+      b.disabled=!(st.uid&&st.canWrite);
+    });
+    el.querySelector(".meta").textContent=!st.db?"投票は、このページを共有された方がサインインして開くと使えます。"
+      :total?`${total}人が回答${mine?"・もう一度押すと取り消せます":""}`:"まだ回答はありません。最初のひとりになってみてください。";
+  });
+}
+function wakaruCount(id){return st.votes.reduce((n,v)=>n+(v.posts&&v.posts[id]?1:0),0)}
+function renderPosts(){
+  const ul=$("#posts");ul.textContent="";
+  if(!st.db)return;
+  let list=st.posts.slice();
+  if(st.sort==="top")list.sort((a,b)=>wakaruCount(b.id)-wakaruCount(a.id)||b.at-a.at);
+  if(!list.length){const li=document.createElement("li");li.className="empty";li.textContent="まだ投稿はありません。最初のひとつを書いてみてください。";ul.append(li);return}
+  for(const p of list){
+    const li=document.createElement("li");li.className="post";
+    if(p.topic){const t=document.createElement("span");t.className="ptopic";t.textContent="#"+TOPICS[p.topic];li.append(t)}
+    const tx=document.createElement("p");tx.className="ptext";tx.textContent=p.text;li.append(tx);
+    const f=document.createElement("div");f.className="pfoot";
+    const w=document.createElement("button");w.type="button";w.className="wakaru";w.dataset.w=p.id;
+    w.setAttribute("aria-pressed",!!st.my.posts[p.id]);w.textContent=`わかる ${wakaruCount(p.id)}`;w.disabled=!(st.uid&&st.canWrite);
+    const d=document.createElement("span");d.textContent=p.at?new Date(p.at).toLocaleDateString("ja-JP",{month:"numeric",day:"numeric"}):"";
+    f.append(w,d);
+    if(st.mine.includes(p.id)||st.isOwner){
+      const del=document.createElement("button");del.type="button";del.className="del";del.dataset.del=p.id;
+      del.textContent=st.confirmDel===p.id?"本当に削除する":(st.mine.includes(p.id)?"自分の投稿を削除":"削除（管理）");f.append(del);
+    }
+    li.append(f);ul.append(li);
+  }
+}
+function render(){renderPolls();renderPosts()}
+
+let chain=Promise.resolve();
+function saveMyVote(){
+  const body=JSON.parse(JSON.stringify(st.my));
+  chain=chain.then(()=>st.db.doc("votes/"+st.uid).set(body)).catch(e=>{if(e&&e.code==="invalid_argument"){st.canWrite=false;render()}});
+}
+
+document.addEventListener("click",ev=>{
+  const o=ev.target.closest(".opt");
+  if(o&&st.uid&&st.canWrite){const t=o.closest(".poll").dataset.topic;
+    if(st.my.topics[t]===o.dataset.v)delete st.my.topics[t];else st.my.topics[t]=o.dataset.v;
+    upsertMine();render();saveMyVote();return}
+  const w=ev.target.closest("[data-w]");
+  if(w&&st.uid&&st.canWrite){const id=w.dataset.w;if(st.my.posts[id])delete st.my.posts[id];else st.my.posts[id]=true;
+    upsertMine();render();saveMyVote();return}
+  const d=ev.target.closest("[data-del]");
+  if(d){const id=d.dataset.del;
+    if(st.confirmDel!==id){st.confirmDel=id;renderPosts();return}
+    st.confirmDel=null;
+    st.db.doc("posts/"+id).delete().then(()=>{if(st.mine.includes(id)){st.mine=st.mine.filter(x=>x!==id);saveMine()}}).catch(()=>{});
+    return}
+  const s=ev.target.closest("[data-sort]");
+  if(s){st.sort=s.dataset.sort;document.querySelectorAll("[data-sort]").forEach(b=>b.setAttribute("aria-pressed",b===s));renderPosts()}
+});
+/* 自分の票を、届く前から集計に反映する */
+function upsertMine(){const i=st.votes.findIndex(v=>v._id===st.uid);const v={...st.my,_id:st.uid};if(i<0)st.votes.push(v);else st.votes[i]=v}
+function saveMine(){st.db.doc("data/users/"+st.uid+"/mine").set({ids:st.mine.slice(-200)}).catch(()=>{})}
+
+$("#pText").addEventListener("input",e=>{$("#pCount").textContent=`${e.target.value.length} / 200`});
+$("#postForm").addEventListener("submit",async ev=>{
+  ev.preventDefault();
+  const text=$("#pText").value.trim(),topic=$("#pTopic").value,msg=$("#pMsg");
+  msg.className="msg";
+  if(!text){msg.className="msg err";msg.textContent="ひと言書いてから投稿してください。";return}
+  $("#pSubmit").disabled=true;
+  try{
+    const ref=st.db.collection("posts").doc();
+    await ref.set({text:text.slice(0,200),topic:TOPICS[topic]?topic:"",at:Date.now()});
+    st.mine.push(ref.id);saveMine();
+    $("#pText").value="";$("#pCount").textContent="0 / 200";msg.textContent="投稿しました。名前は表示されません。";
+  }catch(e){
+    msg.className="msg err";
+    msg.textContent=e&&e.code==="quota_exceeded"?"投稿の上限に達しました。しばらくしてからお試しください。"
+      :e&&e.code==="invalid_argument"?"この表示では投稿できません。編集権限のある共有リンクで開いてください。":"投稿できませんでした。少し待ってからもう一度お試しください。";
+  }
+  setTimeout(()=>{$("#pSubmit").disabled=false},5000);
+});
+
+render();
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+  if(!db)return;
+  st.db=db;
+  if(user){
+    st.uid=await user.id();
+    const cw=await user.can("data.write");st.canWrite=cw!==false;
+    st.isOwner=await user.isOwner();
+  }
+  const canPost=st.uid&&st.canWrite;
+  $("#postForm").hidden=!canPost;
+  $("#sortRow").hidden=false;
+  $("#boardNote").textContent=canPost?"投稿は、ほかの人に名前が表示されない形で保存されます。自分の投稿はあとから削除できます。"
+    :"このページは閲覧のみで開かれています。投稿と投票は、編集を許可された共有リンクで開くと使えます。";
+  db.collection("votes").onSnapshot(snap=>{
+    st.votes=snap.docs.map(d=>({...d.data(),_id:d.id}));
+    const me=st.votes.find(v=>v._id===st.uid);
+    if(me)st.my={topics:{...(me.topics||{})},posts:{...(me.posts||{})}};
+    render();
+  },()=>{});
+  db.collection("posts").orderBy("at","desc").limit(300).onSnapshot(snap=>{
+    st.posts=snap.docs.map(d=>{const x=d.data()||{};return{id:d.id,text:String(x.text||"").slice(0,200),topic:TOPICS[x.topic]?x.topic:"",at:Number(x.at)||0}}).filter(p=>p.text);
+    renderPosts();
+  },()=>{});
+  if(st.uid){
+    try{const m=await db.doc("data/users/"+st.uid+"/mine").get();if(m.exists&&Array.isArray(m.data().ids))st.mine=m.data().ids.map(String)}catch(_){}
+    renderPosts();
+  }
+})();
+</script>
